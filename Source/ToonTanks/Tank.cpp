@@ -5,6 +5,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/InputComponent.h"
+#include "DrawDebugHelpers.h"
+
 
 ATank::ATank()
 {
@@ -44,5 +47,49 @@ void ATank::Turn(float Value)
 	// X = Value * DeltaTime * TurnSpeed
 	DeltaRotation.Yaw = (Value * UGameplayStatics::GetWorldDeltaSeconds(this) * TurnSpeed);
 	AddActorLocalRotation(DeltaRotation, true);
+
+}
+
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PlayerControllerPt = Cast<APlayerController>(GetController());
+
+	
+}
+
+
+// Called every frame
+void ATank::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (PlayerControllerPt)
+	{
+		FHitResult HitResult;
+		PlayerControllerPt->GetHitResultUnderCursor(
+			ECollisionChannel::ECC_Visibility,
+			false,
+			HitResult
+		);
+
+
+		DrawDebugSphere(
+			GetWorld(),
+			HitResult.ImpactPoint,
+			10.0f,
+			30,
+			FColor::Red,
+			false);
+
+		//tank's turret rotate facing mouse point
+		RotateTurret(HitResult.ImpactPoint);
+
+
+	}
+
+
+
 
 }

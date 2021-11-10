@@ -10,6 +10,7 @@
 
 
 
+
 UCLASS()
 class TOONTANKS_API ABasePawn : public APawn
 {
@@ -27,6 +28,8 @@ protected:
 	virtual void BeginPlay() override;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;
+
+	void RotateTurret(FVector TowardsTarget);
 
 private:
 	

@@ -19,6 +19,16 @@ public:
 
 	ATank();
 
+	//called every frame
+	virtual void Tick(float DeltaTime) override;
+
+
+protected:
+
+	void BeginPlay() override;
+	
+
+
 private:
 
 	//Variables
@@ -38,6 +48,8 @@ private:
 
 	void Move(float Value);
 	void Turn(float Value);
+
+	APlayerController* PlayerControllerPt;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
