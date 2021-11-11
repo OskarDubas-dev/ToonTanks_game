@@ -19,6 +19,9 @@ public:
 	virtual void BeginPlay() override;
 
 private:
+
 	class ATank* Tank;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables", meta = (AllowPrivateAccess = "true"))
+	float FireRange;
 	
 };

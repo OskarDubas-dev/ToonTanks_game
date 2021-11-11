@@ -30,6 +30,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis(TEXT("Move"), this, &ATank::Move);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
 	
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
 }
 
 
@@ -67,26 +68,15 @@ void ATank::Tick(float DeltaTime)
 
 	if (PlayerControllerPt)
 	{
+		//get results from mouse point
 		FHitResult HitResult;
 		PlayerControllerPt->GetHitResultUnderCursor(
 			ECollisionChannel::ECC_Visibility,
 			false,
 			HitResult
 		);
-
-
-		DrawDebugSphere(
-			GetWorld(),
-			HitResult.ImpactPoint,
-			10.0f,
-			30,
-			FColor::Red,
-			false);
-
 		//tank's turret rotate facing mouse point
 		RotateTurret(HitResult.ImpactPoint);
-
-
 	}
 
 

@@ -30,6 +30,7 @@ protected:
 	class UCapsuleComponent* CapsuleComp;
 
 	void RotateTurret(FVector TowardsTarget);
+	void Fire();
 
 private:
 	
