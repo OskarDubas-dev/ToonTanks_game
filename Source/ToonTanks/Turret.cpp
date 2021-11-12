@@ -12,7 +12,7 @@ void ATurret::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if(IsInTankRange){
+	if(IsInTankRange()){
 		RotateTurret(Tank->GetActorLocation());
 	}
 	
@@ -30,8 +30,9 @@ void ATurret::BeginPlay()
 
 void ATurret::CheckFireCondition()
 {
-	if (IsInTankRange) {
+	if (IsInTankRange()) {
 		Fire();
+
 	}
 }
 
