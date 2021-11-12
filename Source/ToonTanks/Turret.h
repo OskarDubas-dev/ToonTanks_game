@@ -23,5 +23,10 @@ private:
 	class ATank* Tank;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables", meta = (AllowPrivateAccess = "true"))
 	float FireRange;
+
+	FTimerHandle FireRateTimerHandle;
+	float FireRate = 2.f;
+	void CheckFireCondition();
 	
+	bool IsInTankRange();
 };
