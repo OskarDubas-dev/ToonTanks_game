@@ -66,6 +66,8 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	
+
 	if (PlayerControllerPt)
 	{
 		//get results from mouse point

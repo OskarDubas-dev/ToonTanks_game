@@ -21,10 +21,15 @@ protected:
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* BaseMesh;
+	UStaticMeshComponent* ProjectileMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovementComp;
 
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	UPROPERTY(EditAnywhere)
+	float Damage = 50.f;
 
 
 public:	
