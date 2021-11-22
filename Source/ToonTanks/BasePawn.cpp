@@ -43,6 +43,7 @@ void ABasePawn::Tick(float DeltaTime)
 
 }
 
+//Rotate turret mesh towards target
 void ABasePawn::RotateTurret(FVector TowardsTarget)
 {
 	FVector ToTarget = TowardsTarget - TurretMesh->GetComponentLocation();
