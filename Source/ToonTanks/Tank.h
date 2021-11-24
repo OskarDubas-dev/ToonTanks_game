@@ -16,24 +16,25 @@ class TOONTANKS_API ATank : public ABasePawn
 	GENERATED_BODY()
 
 public:
-
 	ATank();
 
 	//called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	APlayerController* GetTankPlayerController() const;
+	
+
+	void HandleDestruction();
+
 
 protected:
-
 	void BeginPlay() override;
-	
 
 
 private:
-
 	//Variables
-	FVector DeltaLocation{ 0.0f };
-	FRotator DeltaRotation{ 0.0f };
+	FVector DeltaLocation{0.0f};
+	FRotator DeltaRotation{0.0f};
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables", meta = (AllowPrivateAccess = "true"))
 	float MoveSpeed = 100.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables", meta = (AllowPrivateAccess = "true"))
@@ -49,9 +50,8 @@ private:
 	void Move(float Value);
 	void Turn(float Value);
 
-	APlayerController* PlayerControllerPt;
+	APlayerController* TankPlayerController;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
 };

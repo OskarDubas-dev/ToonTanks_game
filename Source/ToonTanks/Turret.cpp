@@ -28,6 +28,12 @@ void ATurret::BeginPlay()
 	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &ATurret::CheckFireCondition, FireRate, true);
 }
 
+void ATurret::HandleDestruction()
+{
+	Super::HandleDestruction();
+	Destroy();
+}
+
 void ATurret::CheckFireCondition()
 {
 	if (IsInTankRange()) {

@@ -16,9 +16,6 @@ ATank::ATank()
 
 	TankCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Tank Camera"));
 	TankCamera->SetupAttachment(SpringArm);
-	
-	
-
 }
 
 
@@ -29,7 +26,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis(TEXT("Move"), this, &ATank::Move);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
-	
+
 	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
 }
 
@@ -48,16 +45,13 @@ void ATank::Turn(float Value)
 	// X = Value * DeltaTime * TurnSpeed
 	DeltaRotation.Yaw = (Value * UGameplayStatics::GetWorldDeltaSeconds(this) * TurnSpeed);
 	AddActorLocalRotation(DeltaRotation, true);
-
 }
 
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerControllerPt = Cast<APlayerController>(GetController());
-
-	
+	TankPlayerController = Cast<APlayerController>(GetController());
 }
 
 
@@ -66,13 +60,12 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	
 
-	if (PlayerControllerPt)
+	if (TankPlayerController)
 	{
 		//get results from mouse point
 		FHitResult HitResult;
-		PlayerControllerPt->GetHitResultUnderCursor(
+		TankPlayerController->GetHitResultUnderCursor(
 			ECollisionChannel::ECC_Visibility,
 			false,
 			HitResult
@@ -80,8 +73,17 @@ void ATank::Tick(float DeltaTime)
 		//tank's turret rotate facing mouse point
 		RotateTurret(HitResult.ImpactPoint);
 	}
+}
+
+APlayerController* ATank::GetTankPlayerController() const
+{
+	return TankPlayerController;
+}
 
 
-
-
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
 }

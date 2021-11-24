@@ -29,6 +29,13 @@ ABasePawn::ABasePawn()
 	
 }
 
+void ABasePawn::HandleDestruction()
+{
+	//TODO: Visual and sound effects
+
+	
+}
+
 // Called when the game starts or when spawned
 void ABasePawn::BeginPlay()
 {
