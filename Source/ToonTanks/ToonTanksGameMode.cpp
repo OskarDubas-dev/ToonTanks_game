@@ -7,7 +7,8 @@
 #include "ToonTanksPlayerController.h"
 #include "Turret.h"
 
-void AToonTanksGameMode::ActorDied(AActor* DeadActor) const
+
+void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 {
 	if (DeadActor == Tank)
 	{
@@ -16,10 +17,16 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor) const
 		{
 			ToonTanksPlayerController->SetPlayerEnabledState(false);
 		}
+		GameOver(false);
 	}
 	else if (ATurret* DestroyedTurret = Cast<ATurret>(DeadActor))
 	{
 		DestroyedTurret->HandleDestruction();
+		TurretsRemaining--;
+		if (TurretsRemaining == 0)
+		{
+			GameOver(true);
+		}
 	}
 }
 
@@ -29,19 +36,15 @@ void AToonTanksGameMode::BeginPlay()
 	HandleGameStart();
 }
 
-/**
- * @brief Function called at the beginning of the game.
- *
- * It switch off player controller for a
- * specific amount of time using TimerManager.SetTimer()
- */
+
 void AToonTanksGameMode::HandleGameStart()
 {
+	TurretsRemaining = GetTurretsTargetNumber();
 	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	ToonTanksPlayerController = Cast<AToonTanksPlayerController>((UGameplayStatics::GetPlayerController(this, 0)));
 
 	StartGame();
-	
+
 	if (ToonTanksPlayerController)
 	{
 		ToonTanksPlayerController->SetPlayerEnabledState(false);
@@ -52,9 +55,17 @@ void AToonTanksGameMode::HandleGameStart()
 			&AToonTanksPlayerController::SetPlayerEnabledState,
 			true);
 		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle,
-			PlayerEnableTimerDelegate,
-			StartDelay,
-			false);
-		
+		                                PlayerEnableTimerDelegate,
+		                                StartDelay,
+		                                false);
 	}
+}
+
+int32 AToonTanksGameMode::GetTurretsTargetNumber() const
+{
+	TArray<AActor*> Turrets;
+
+	UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Turrets);
+
+	return Turrets.Num();
 }
