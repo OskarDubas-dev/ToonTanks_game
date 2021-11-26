@@ -3,8 +3,8 @@
 
 #include "BasePawn.h"
 #include "Components/CapsuleComponent.h"
-#include "DrawDebugHelpers.h"
 #include "Projectile.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -28,7 +28,15 @@ ABasePawn::ABasePawn()
 
 void ABasePawn::HandleDestruction()
 {
-	//TODO: Visual and sound effects
+	if(ExplosionParticle)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(this,
+											 ExplosionParticle,
+											 GetActorLocation(),
+											 GetActorRotation(),
+											 FVector(1));
+	}
+
 }
 
 // Called when the game starts or when spawned

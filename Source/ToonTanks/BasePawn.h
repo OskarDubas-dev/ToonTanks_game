@@ -32,7 +32,7 @@ protected:
 	 * @param TowardsTarget target that mesh will rotate towards
 	 */
 	void RotateTurret(FVector TowardsTarget);
-	
+
 	/**
 	 * @brief Function used to launch a projectile object from ProjectileSpawnPoint
 	 */
@@ -50,7 +50,8 @@ private:
 	class USceneComponent* ProjectileSpawnPoint;
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	TSubclassOf<class AProjectile> ProjectileClass;
-
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class UParticleSystem* ExplosionParticle;
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
