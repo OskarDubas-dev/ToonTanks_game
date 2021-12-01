@@ -10,8 +10,8 @@ UCLASS()
 class TOONTANKS_API AProjectile : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AProjectile();
 
@@ -26,7 +26,8 @@ private:
 	class UProjectileMovementComponent* ProjectileMovementComp;
 
 	UFUNCTION()
-	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse,
+	           const FHitResult& Hit);
 
 	UPROPERTY(EditAnywhere)
 	float Damage = 50.f;
@@ -39,12 +40,15 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	class USoundBase* LaunchSound;
-	
+
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	USoundBase* HitSound;
 
-public:	
+	// UE 4.25 - UCameraShake; UE 4.26+ - UCameraShakeBase
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<class UCameraShake> HitCameraShakeClass;
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };

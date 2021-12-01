@@ -54,6 +54,8 @@ private:
 	class UParticleSystem* ExplosionParticle;
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	class USoundBase* DeathSound;
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<class UCameraShake> DeathCamerShakeClass;
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

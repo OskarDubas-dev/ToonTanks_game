@@ -17,15 +17,14 @@ class TOONTANKS_API ATank : public ABasePawn
 
 public:
 	ATank();
-
 	//called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	bool bIsAlive = true;
+	
 	APlayerController* GetTankPlayerController() const;
 	
-
 	void HandleDestruction();
-
 
 protected:
 	void BeginPlay() override;
