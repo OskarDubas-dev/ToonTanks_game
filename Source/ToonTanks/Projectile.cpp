@@ -14,15 +14,16 @@ AProjectile::AProjectile()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	
+
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
 	RootComponent = ProjectileMesh;
-	
-	ProjectileMovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
-	
+
+	ProjectileMovementComp = CreateDefaultSubobject<
+		UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
+
 	SmokeTrailComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Smoke Trail Component"));
 	SmokeTrailComponent->SetupAttachment(RootComponent);
-	
+
 	ProjectileMovementComp->MaxSpeed = 2000.f;
 	ProjectileMovementComp->InitialSpeed = 2000.f;
 }
@@ -33,6 +34,11 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
+	if (LaunchSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
+	}
 }
 
 // Called every frame
@@ -66,6 +72,10 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 			                                         GetActorLocation(),
 			                                         GetActorRotation(),
 			                                         FVector(1.3));
+		}
+		if (HitSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 		}
 	}
 	Destroy();

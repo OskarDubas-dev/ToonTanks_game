@@ -37,6 +37,11 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Combat")
 	class UParticleSystemComponent* SmokeTrailComponent;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class USoundBase* LaunchSound;
+	
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	USoundBase* HitSound;
 
 public:	
 	// Called every frame

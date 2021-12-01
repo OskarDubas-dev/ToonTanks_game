@@ -59,6 +59,14 @@ void AToonTanksGameMode::HandleGameStart()
 		                                StartDelay,
 		                                false);
 	}
+	
+	
+	// if(BGM->IsLooping())
+	// {
+	// 	
+	// 	UGameplayStatics::PlaySoundAtLocation(this, BGM, Tank->GetActorLocation(), VolumeSound );
+	// 	
+	// }
 }
 
 int32 AToonTanksGameMode::GetTurretsTargetNumber() const

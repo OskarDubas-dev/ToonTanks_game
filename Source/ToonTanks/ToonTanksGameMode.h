@@ -55,4 +55,9 @@ private:
 	*/
 	int32 GetTurretsTargetNumber() const;
 	int32 TurretsRemaining = 0;
+
+	// UPROPERTY(EditAnywhere, Category = "Music")
+	// class USoundBase* BGM;
+	// UPROPERTY(EditAnywhere, Category = "Music")
+	// float VolumeSound = 0.5;
 };

@@ -28,15 +28,19 @@ ABasePawn::ABasePawn()
 
 void ABasePawn::HandleDestruction()
 {
-	if(ExplosionParticle)
+	if (ExplosionParticle)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(this,
-											 ExplosionParticle,
-											 GetActorLocation(),
-											 GetActorRotation(),
-											 FVector(1));
+		                                         ExplosionParticle,
+		                                         GetActorLocation(),
+		                                         GetActorRotation(),
+		                                         FVector(1));
 	}
 
+	if (DeathSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+	}
 }
 
 // Called when the game starts or when spawned
