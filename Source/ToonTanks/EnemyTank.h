@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BasePawn.h"
+#include "BehaviorTree/BehaviorTree.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "EnemyTank.generated.h"
 
@@ -17,19 +18,13 @@ class TOONTANKS_API AEnemyTank : public ABasePawn
 
 	AEnemyTank();
 public:
-	UFUNCTION(BlueprintImplementableEvent)
-	void Turn(float Value);
+	UPROPERTY(EditAnywhere, Category = "AI")
+	class UBehaviorTree* BehaviorTree;
 
 private:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables", meta = (AllowPrivateAccess = "true"))
-	float MoveSpeed = 100.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables", meta = (AllowPrivateAccess = "true"))
-	float TurnSpeed = 100.0f;
-	
-	FVector DeltaLocation{0.0f};
-	FRotator DeltaRotation{0.0f};
 	UPROPERTY(VisibleAnywhere, Category = "AI")
 	class UFloatingPawnMovement* FloatingPawnMovement;
+
+	
 	
 };
